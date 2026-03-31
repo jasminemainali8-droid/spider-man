@@ -55,3 +55,6 @@
 .spiderman-game-menu-button:active {
 	color: rgb(200, 0, 0);
 }
+#frontpage p{
+margin-bottom: 60px;
+}
