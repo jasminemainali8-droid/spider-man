@@ -2,102 +2,283 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="description"
-                content="A Simple Spiderman Game in HTML5, CSS3 and Javascript" />
-        <meta name="author" content="Chandula Janith (RedEdge967)" />
-	<title>Spider-Man Game | A spiderman game to fight with more Villains of Spider-Man</title>
+	<meta name="description" content="A Simple Spiderman Game in HTML5, CSS3 and Javascript" />
+	<meta name="author" content="(RedEdge967)" />
+	<title>Spider-Man Game</title>
 	<link rel="shortcut icon" href="images/spider-head.png" />
-</head>
-<style type="text/css">
-	html,
-	body {
-		height: 100%;
-		width: 100%;
-		margin: 0;
-		font-size: 0;
-		background: #000;
-	}
 
-	.canvas-wrapper {
-		float: left;
-		position: absolute;
-		top: 50%;
-		left: 50%;
+<style>
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	background: #000;
+	font-family: Arial, Helvetica, sans-serif;
+	overflow: hidden;
+	color: white;
+}
 
-		-webkit-transform: translate(-50%, -50%);
-		-moz-transform: translate(-50%, -50%);
-		-ms-transform: translate(-50%, -50%);
-		-o-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
-	}
 
-	.key {
-	    height: 30px;
-	    min-width: 20px;
-	    line-height: 30px;
-	    text-align: center;
-	    border: 1px solid #ccc;
-	    border-bottom: 3px solid #bbb;
-	    background: white;
-	    display: inline-block;
-	    padding: 0 5px;
-	    border-radius: 5px;
-	    box-shadow: inset 0 -1px 0 #ccc;
-	    color: #333;
-	    font-weight: bold;
-	}
+#frontPage {
+	position: fixed;
+	inset: 0;
+	background: radial-gradient(circle at top, #400000, #000);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	z-index: 10;
+	animation: fadeIn 1.5s;
+}
 
-	.key.spacebar {
-		padding: 0 40px;
-	}
+#frontPage h1 {
+	font-size: 70px;
+	letter-spacing: 4px;
+	text-shadow: 0 0 25px red;
+	margin: 0px;
+	padding: 0px;
+}
 
-	.keyboard {
-		margin: 5px 0;
-		font-size: 15px;
-	    font-family: Helvetica;
-	    color: white;
-	}
+#frontPage span {
+	color: #ff3b3b;
+}
 
-	.action {
-		margin-right: 15px;
-	}
+#frontPage p {
+	color: #aaa;
+	margin-bottom: 20px;
+}
 
-	.link {
-		width: 100%;
-		text-align: center;
-		font-size: 20px;
-		color: #ccc;
-		font-family: SpidermanGamePixelFont, Helvetica, Arial;
-		margin-top: 20px;
+
+.btn {
+	padding: 14px 36px;
+	margin: 10px;
+	font-size: 18px;
+	border-radius: 30px;
+	border: none;
+	cursor: pointer;
+	color: white;
+	background: linear-gradient(135deg, #b00000, #ff0000);
+	box-shadow: 0 0 20px rgba(255,0,0,0.5);
+	transition: 0.3s;
+}
+
+.btn:hover {
+	transform: scale(1.08);
+	box-shadow: 0 0 40px rgba(255,0,0,0.9);
+}
+
+.btn.secondary {
+	background: transparent;
+	border: 2px solid red;
+}
+
+
+#loginPanel {
+	display: none;
+	margin-top: 20px;
+	width: 300px;
+	background: rgba(0,0,0,0.85);
+	padding: 25px;
+	border-radius: 14px;
+	box-shadow: 0 0 40px rgba(255,0,0,0.6);
+	animation: pop 0.4s ease forwards;
+}
+
+#loginPanel h2 {
+	margin-bottom: 15px;
+}
+
+#loginPanel input {
+	width: 100%;
+	padding: 12px;
+	margin: 10px 0;
+	border-radius: 6px;
+	border: 1px solid red;
+	background: #111;
+	color: white;
+}
+
+#loginPanel input:focus {
+	outline: none;
+	box-shadow: 0 0 10px red;
+}
+
+
+.designer-credit {
+	position: absolute;
+	bottom: 25px;
+	text-align: center;
+	font-size: 12px;
+	letter-spacing: 3px;
+	color: rgba(255,255,255,0.5);
+	animation: riseFade 2.5s ease forwards;
+}
+
+.designer-credit strong {
+	display: block;
+	margin-top: 6px;
+	font-size: 22px;
+	letter-spacing: 4px;
+	color: #ff3b3b;
+	text-shadow: 0 0 12px red;
+	font-weight: 600;
+}
+
+
+
+.canvas-wrapper {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    background: #111;    
+}
+
+
+.keyboard {
+	margin-bottom: 8px;
+	font-size: 14px;
+	color: #ccc;
+	text-align: center;
+}
+
+.key {
+	height: 28px;
+	min-width: 22px;
+	line-height: 28px;
+	text-align: center;
+	border: 1px solid #ccc;
+	background: white;
+	display: inline-block;
+	padding: 0 6px;
+	border-radius: 4px;
+	color: #000;
+	font-weight: bold;
+}
+
+.key.spacebar {
+	padding: 0 40px;
+}
+
+
+.designer-watermark {
+	position: fixed;
+	bottom: 10px;
+	right: 15px;
+	font-size: 11px;
+	letter-spacing: 2px;
+	color: rgba(255,255,255,0.25);
+	pointer-events: none;
+	text-transform: uppercase;
+}
+
+
+@keyframes fadeIn {
+	from { opacity: 0 }
+	to { opacity: 1 }
+}
+
+@keyframes pop {
+	from { transform: scale(0.8); opacity: 0 }
+	to { transform: scale(1); opacity: 1 }
+}
+
+@keyframes riseFade {
+	from {
+		opacity: 0;
+		transform: translateY(15px);
 	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
 </style>
+</head>
+
 <body>
-	<div class="canvas-wrapper">
-		<div class="keyboard">
-			<div class="key spacebar">Spacebar</div>
-			<span class="action">- Shoot</span>
 
-			<div class="key">←</div>
-			<div class="key">→</div>
-			<span class="action">- Left/Right</span>
 
-			<div class="key">↑</div>
-			<span class="action">- Jump</span>
+<div id="frontPage">
+	<h1>SPIDER<span>-MAN</span></h1>
+	<p>With great power comes great responsibility</p>
 
-			<div class="key">Esc</div>
-			<span class="action">- Pause</span>
-		</div>
-		<canvas id="canvas"></canvas>
-		
+	<button class="btn" onclick="showLogin()">LOGIN</button>
+	<button class="btn secondary" onclick="playGuest()">PLAY AS GUEST</button>
+
+	<div id="loginPanel">
+		<h2>Player Login</h2>
+		<input id="username" placeholder="Username">
+		<input type="password" placeholder="Password">
+		<button class="btn" onclick="login()">ENTER GAME</button>
 	</div>
-</body>
-<script type="text/javascript" src="spiderman-game.js"></script>
-<script type="text/javascript">
 
-var game = new SpidermanGame({
-	canvas: "#canvas"
-});
-game.load();
+	
+	<div class="designer-credit">
+		DESIGNED BY
+		<strong>JASMINE MAINALI</strong>
+	</div>
+</div>
 
+
+<div class="canvas-wrapper" id="gameArea">
+	
+	<div class="keyboard">
+		<div class="key spacebar">Space</div> Shoot &nbsp;
+		<div class="key">←</div><div class="key">→</div> Move &nbsp;
+		<div class="key">↑</div> Jump &nbsp;
+		<div class="key">Esc</div> Pause
+	</div>
+	<canvas id="canvas" style="height: fit-content; width: 100vh;"></canvas>
+
+	
+	<div class="designer-watermark">JASMINE STUDIOS</div>
+</div>
+
+<script src="spiderman-game.js"></script>
+
+<script>
+let game;
+
+function showLogin() {
+	document.getElementById("loginPanel").style.display = "block";
+}
+
+function login() {
+	const user = document.getElementById("username").value;
+	if (!user) {
+		alert("Enter username");
+		return;
+	}
+	localStorage.setItem("player", user);
+	startGame();
+}
+
+function playGuest() {
+	localStorage.setItem("player", "Guest");
+	startGame();
+}
+
+function startGame() {
+	document.getElementById("frontPage").style.display = "none";
+	document.getElementById("gameArea").style.display = "block";
+
+	game = new SpidermanGame({
+		canvas: "#canvas"
+	});
+	game.load();
+}
 </script>
+
+</body>
 </html>
